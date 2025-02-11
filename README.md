@@ -18,7 +18,7 @@ The **Drawing Emojis App** is a Flutter-based interactive application that allow
 ### Steps to Run
 1. Clone this repository:
    ```sh
-   git clone https://github.com/Ruhisawant/Drawing-Emojis.git
+   git clone https://github.com/Ruhisawant/Drawing-Emojis-App.git
    ```
 2. Navigate to the project directory:
    ```sh
