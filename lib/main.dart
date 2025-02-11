@@ -42,14 +42,9 @@ class _DrawingAppState extends State<DrawingApp> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Drawing App'),
-        actions: [
-          IconButton(
-            icon: Icon(isDrawingMode ? Icons.emoji_emotions : Icons.brush),
-            onPressed: _toggleDrawingMode,
-          ),
-        ],
       ),
       body: GestureDetector(
+        
         onPanUpdate: (details) {
           setState(() {
             RenderBox renderBox = context.findRenderObject() as RenderBox;
@@ -69,17 +64,26 @@ class _DrawingAppState extends State<DrawingApp> {
         child: CustomPaint(
           painter: isDrawingMode
               ? DrawingPainter(lines)
-              : facePainters[currentFaceIndex], // Toggle between drawing and faces
+              : facePainters[currentFaceIndex],
           size: Size.infinite,
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          setState(() {
-            lines.clear();
-          });
-        },
-        child: const Icon(Icons.clear),
+      floatingActionButton: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          FloatingActionButton(
+            onPressed: () {
+              setState(() {
+                lines.clear();
+              });
+            },
+            child: const Icon(Icons.clear),
+          ),
+          IconButton(
+            icon: Icon(isDrawingMode ? Icons.emoji_emotions : Icons.brush),
+            onPressed: _toggleDrawingMode,
+          ),
+        ],
       ),
       bottomNavigationBar: BottomAppBar(
         child: Row(
@@ -127,7 +131,7 @@ class _DrawingAppState extends State<DrawingApp> {
   }
 }
 
-// Free Drawing
+// Drawing Mode
 class DrawingPainter extends CustomPainter {
   final List<List<Offset>> lines;
 
@@ -303,35 +307,72 @@ class PartyFace extends CustomPainter {
     final paintYellow = Paint()
       ..color = Colors.yellow
       ..style = PaintingStyle.fill;
-    final paintBlack = Paint()
+    final paintBlue = Paint()
+      ..color = Colors.blue
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 13.0;
+    final paintBlackLine = Paint()
       ..color = Colors.black
-      ..style = PaintingStyle.fill;
-
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 13.0;
+    final paintPinkLine = Paint()
+      ..color = Colors.pink
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 13.0;
+    
     final radius = size.width / 3;
     final bodyCenter = Offset(size.width / 2, size.height / 2);
-    final leftEyeCenter = Offset(bodyCenter.dx - radius / 2.5, bodyCenter.dy - radius / 4);
-    final rightEyeCenter = Offset(bodyCenter.dx + radius / 2.5, bodyCenter.dy - radius / 4);
-    final mouthCenter = Offset(bodyCenter.dx, bodyCenter.dy + radius / 4);
+    final leftEyeCenter = Offset(bodyCenter.dx - radius / 2.5, bodyCenter.dy - radius / 5);
+    final rightEyeCenter = Offset(bodyCenter.dx + radius / 2.5, bodyCenter.dy - radius / 5);
 
     canvas.drawCircle(bodyCenter, radius, paintYellow);
-
-    canvas.drawOval(
-      Rect.fromCenter(center: leftEyeCenter, width: radius * 0.4, height: radius * 0.6),
-      paintBlack
-    ); // left eye
-
-    canvas.drawOval(
-      Rect.fromCenter(center: rightEyeCenter, width: radius * 0.4, height: radius * 0.6),
-      paintBlack
-    ); // right eye
-
+    
     canvas.drawArc(
-      Rect.fromCenter(center: mouthCenter, width: radius, height: radius / 1.1),
+      Rect.fromCenter(center: leftEyeCenter, width: size.width / 6, height: size.height / 6),
       0,
-      pi,
+      -pi,
       false,
-      paintBlack
-    ); // Party mouth
+      paintBlackLine
+    ); // Left eye
+    
+    canvas.drawArc(
+      Rect.fromCenter(center: rightEyeCenter, width: size.width / 6, height: size.height / 6),
+      0,
+      -pi,
+      false,
+      paintBlackLine
+    ); // Right eye
+
+    // Mouth
+    canvas.drawArc(
+      Rect.fromCenter(center: Offset(size.width / 2, size.height * 0.6), width: radius / 2, height: radius / 5), 
+      pi / 2,
+      -pi,
+      false,
+      paintBlackLine
+    );
+    canvas.drawArc(
+      Rect.fromCenter(center: Offset(size.width / 2, size.height * 0.67), width: radius / 2, height: radius / 5), 
+      pi / 2,
+      -pi,
+      false,
+      paintBlackLine
+    );
+
+    // Hat
+    final triangleVertices = <Offset>[
+      Offset(size.width / 50, size.height / 18), // Top vertex
+      Offset(size.width * 0.4 + 90, size.height / 250 * 35), // Right vertex
+      Offset(size.width * 0.25 - 90, size.height * 0.25 + 180), // Left vertex
+    ];
+    final vertices = ui.Vertices(
+      ui.VertexMode.triangles,
+      triangleVertices,
+    );
+    canvas.drawVertices(vertices, BlendMode.srcOver, paintBlue);
+    canvas.drawLine(const Offset(100, 300), const Offset(315, 100), paintPinkLine);
+    canvas.drawLine(const Offset(63, 200), const Offset(195, 80), paintPinkLine);
+    canvas.drawLine(const Offset(40, 110), const Offset(90, 60), paintPinkLine);
   }
 
   @override
