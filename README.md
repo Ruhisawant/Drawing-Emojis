@@ -1,20 +1,60 @@
-HEAD
-# drawing-emojis
+# Drawing Emojis App
 
-# Emojis
+## Overview
+The **Drawing Emojis App** is a Flutter-based interactive application that allows users to draw freely on the screen and toggle between different emoji faces, such as a smiley face, heart eyes, shocked face, and party face. The app provides a simple, fun, and creative way to interact with drawing and emoji expressions.
 
-A new Flutter project.
+## Features
+- **Drawing Mode**: Users can draw freely on the screen using touch gestures.
+- **Emoji Mode**: Toggle to display pre-defined emoji faces instead of drawing.
+- **Clear Drawing**: A button to erase the drawing canvas.
+- **Switch Emojis**: Buttons to switch between different emoji faces.
+- **User-Friendly UI**: Simple and easy-to-use interface.
 
-## Getting Started
+## Installation
+### Prerequisites
+- Flutter SDK installed ([Flutter Installation Guide](https://docs.flutter.dev/get-started/install))
+- A device or emulator to run the app
 
-This project is a starting point for a Flutter application.
+### Steps to Run
+1. Clone this repository:
+   ```sh
+   git clone https://github.com/ruhisawant/drawing-emojis.git
+   ```
+2. Navigate to the project directory:
+   ```sh
+   cd drawing-emojis
+   ```
+3. Get the required dependencies:
+   ```sh
+   flutter pub get
+   ```
+4. Run the app:
+   ```sh
+   flutter run
+   ```
 
-A few resources to get you started if this is your first Flutter project:
+## Usage
+- **Drawing Mode**: Start drawing by moving your finger on the screen.
+- **Emoji Mode**: Tap the toggle button to switch to emoji display.
+- **Clear Canvas**: Press the clear button to remove all drawings.
+- **Change Emojis**: Use the emoji buttons at the bottom to cycle through different emojis.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Technologies Used
+- **Flutter** for building the UI and handling gestures.
+- **Dart** as the programming language.
+- **CustomPainter** for drawing lines and emojis.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
- 3a23d95 (Add Emoji FLutter Project)
+## Future Improvements
+- Add more emoji expressions.
+- Implement color selection for drawing.
+- Save and share drawings.
+- Enhance UI with animations and effects.
+
+## Contributing
+Feel free to fork this repository and submit pull requests with improvements or new features!
+
+## License
+This project is open-source and available under the MIT License.
+
+---
+Developed by Ruhi Sawant
