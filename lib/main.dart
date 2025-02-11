@@ -10,6 +10,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(
+        primaryColor: Colors.purple,
+      ),
       home: DrawingApp(),
     );
   }
@@ -23,13 +26,8 @@ class DrawingApp extends StatefulWidget {
 class _DrawingAppState extends State<DrawingApp> {
   List<List<Offset>> lines = [];
   int currentFaceIndex = 0;
-  bool isDrawingMode = true; // Add this variable to toggle drawing mode
-  final List<CustomPainter> facePainters = [
-    SmileyFace(),
-    HeartEyesFace(),
-    SadFace(),
-    PartyFace(),
-  ];
+  bool isDrawingMode = true;
+  final List<CustomPainter> facePainters = [ SmileyFace(), HeartEyesFace(), ShockedFace(), PartyFace(),];
 
   void _toggleDrawingMode() {
     setState(() {
@@ -42,9 +40,9 @@ class _DrawingAppState extends State<DrawingApp> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Drawing App'),
+        backgroundColor: Theme.of(context).primaryColor,
       ),
       body: GestureDetector(
-        
         onPanUpdate: (details) {
           setState(() {
             RenderBox renderBox = context.findRenderObject() as RenderBox;
@@ -110,7 +108,7 @@ class _DrawingAppState extends State<DrawingApp> {
             ElevatedButton(
               onPressed: () {
                 setState(() {
-                  currentFaceIndex = 2; // Display Sad Face
+                  currentFaceIndex = 2; // Display Shocked Face
                 });
               },
               child: const Text("Sad Face"),
@@ -258,8 +256,8 @@ class HeartEyesFace extends CustomPainter {
   bool shouldRepaint(CustomPainter oldDelegate) => true;
 }
 
-// Sad Face
-class SadFace extends CustomPainter {
+// Shocked Face
+class ShockedFace extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final paintYellow = Paint()
@@ -293,7 +291,7 @@ class SadFace extends CustomPainter {
       pi,
       false,
       paintBlack
-    ); // Sad mouth
+    ); // mouth
   }
 
   @override
